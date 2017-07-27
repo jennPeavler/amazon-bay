@@ -2,6 +2,7 @@
 
 main {
   display: flex;
+  justify-content: space-between;
 }
 
 #inventory {
@@ -9,18 +10,71 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-}
-
-.sidebar {
-  width: 20%;
+  border: 3px solid black;
+  margin: 10px auto;
 }
 
 .item {
   border: solid black 1px;
-  width: 25%;
+  width: 30%;
+  margin-top: 30px;
 }
 
 .item img {
   width: 100px;
   height: 100px;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+  display: none;
+}
+
+th {
+  width: 100px;
+}
+
+#cart,
+#history {
+  border: 1px solid black;
+}
+
+.hide-cart {
+  writing-mode: tb;
+  position: absolute;
+  right: 0;
+  height: 1000%;
+    padding-top: 20%;
+}
+
+.show-cart {
+  background: magenta;
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  height: 1000%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.hide-history {
+  writing-mode: tb;
+  position: absolute;
+  left: 0;
+  height: 1000%;
+  padding-top: 20%;
+}
+
+.show-history {
+  background: magenta;
+  position: absolute;
+  left: 0;
+  z-index: 2;
+  height: 1000%;
+  padding-left: 5%;
+  padding-right: 5%;
 }

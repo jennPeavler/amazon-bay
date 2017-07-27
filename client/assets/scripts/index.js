@@ -1,10 +1,13 @@
 const inventoryDisplay = document.getElementById('inventory');
 const shoppingCart = document.getElementById('shopping-cart');
 const cartTotal = document.getElementById('cart-total');
+const cart = document.getElementById('cart');
+const history = document.getElementById('history');
+const orderHistory = document.getElementById('order-history');
+const orderBtn = document.getElementById('place-order-btn')
 let runningTotal = 0;
-let root = window.location.href
-console.log(root)
-
+let orderNumber = 0;
+let root = window.location.href;
 
 const getInventory = () => {
   fetch(`${root}api/v1/inventory`)
@@ -15,7 +18,6 @@ const getInventory = () => {
 }
 
 const displayInventory = (inventory) => {
-  console.log(inventory);
   inventory.forEach(item => {
     let newItem = document.createElement('article');
     newItem.classList.add('item');
@@ -48,9 +50,7 @@ const displayInventory = (inventory) => {
       shoppingCart.append(newRow);
       let itemPrice = Number(cartPrice.innerHTML);
       runningTotal += itemPrice;
-      console.log(typeof(itemPrice), itemPrice);
-      console.log('running total', runningTotal);
-      cartTotal.innerHTML = runningTotal;
+      cartTotal.innerHTML = `$${runningTotal}`;
     })
 
     newItem.append(title);
@@ -62,5 +62,57 @@ const displayInventory = (inventory) => {
     inventoryDisplay.append(newItem)
   })
 }
+
+
+cart.addEventListener('click', function() {
+  if (cart.classList.contains('hide-cart')) {
+    cart.classList.remove('hide-cart');
+    cart.classList.add('show-cart')
+    document.getElementById('shopping-cart').style.display = 'block'
+    document.getElementById('totals').style.display = 'block'
+    document.getElementById('place-order-btn').style.display = 'block'
+  } else {
+    cart.classList.remove('show-cart');
+    cart.classList.add('hide-cart')
+    document.getElementById('shopping-cart').style.display = 'none'
+    document.getElementById('totals').style.display = 'none'
+    document.getElementById('place-order-btn').style.display = 'none'
+  }
+})
+
+history.addEventListener('click', function() {
+  if (history.classList.contains('hide-history')) {
+    history.classList.remove('hide-history');
+    history.classList.add('show-history');
+    document.getElementById('order-history').style.display = 'block'
+  } else {
+    history.classList.remove('show-history');
+    history.classList.add('hide-history')
+    document.getElementById('order-history').style.display = 'none'
+  }
+})
+
+orderBtn.addEventListener('click', function() {
+  orderNumber += 1;
+  let newOrder = document.createElement('tr');
+
+  let order = document.createElement('th');
+  order.innerHTML += orderNumber;
+  let orderDate = document.createElement('th');
+  orderDate.innerHTML += Date.now();
+  let orderTotal = document.createElement('th');
+  orderTotal.innerHTML += runningTotal;
+
+  newOrder.append(order);
+  newOrder.append(orderDate);
+  newOrder.append(orderTotal);
+
+  orderHistory.append(newOrder);
+
+
+})
+
+
+
 
 getInventory();
