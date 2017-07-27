@@ -11,6 +11,12 @@ app.use(bodyParser.json());
 
 app.use('/assets', express.static(path.join(__dirname, '../client/assets/')));
 
+app.get('/', (req, res) => {
+  console.log('hi dare');
+  console.log(req.headers.host)
+  res.sendFile(path.join(__dirname, '../client/index.html'))
+})
+
 app.use('/api/v1', router);
 
 app.listen(port, () => {
