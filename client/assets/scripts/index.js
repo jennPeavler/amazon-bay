@@ -38,6 +38,7 @@ const displayInventory = (inventory) => {
     addItemBtn.innerHTML += 'Add Item';
     addItemBtn.addEventListener('click', () => {
       let newRow = document.createElement('tr');
+      newRow.classList.add('cart-row')
 
       let cartItem = document.createElement('th');
       cartItem.innerHTML += `${item.title}`;
@@ -101,13 +102,24 @@ orderBtn.addEventListener('click', function() {
   let orderDate = document.createElement('th');
   orderDate.innerHTML += Date.now();
   let orderTotal = document.createElement('th');
-  orderTotal.innerHTML += runningTotal;
+  orderTotal.innerHTML += `$${runningTotal}`;
 
   newOrder.append(order);
   newOrder.append(orderDate);
   newOrder.append(orderTotal);
-
   orderHistory.append(newOrder);
+
+  runningTotal = 0;
+
+  const cartRows = document.querySelectorAll('.cart-row');
+  // console.log('cart rows', cartRows)
+  cartRows.forEach(row => {
+    console.log(row)
+    row.parentNode.removeChild(row);
+    cartTotal.innerHTML = '';
+  })
+
+
 
 
 })
