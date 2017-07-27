@@ -52,6 +52,10 @@ const displayInventory = (inventory) => {
       let itemPrice = Number(cartPrice.innerHTML);
       runningTotal += itemPrice;
       cartTotal.innerHTML = `$${runningTotal}`;
+
+      let storageItem = JSON.stringify({title: `${item.title}`, price: `${item.price}`})
+      localStorage.setItem(Date.now(), storageItem)
+
     })
 
     newItem.append(title);
@@ -119,12 +123,30 @@ orderBtn.addEventListener('click', function() {
     cartTotal.innerHTML = '';
   })
 
-
-
-
+  localStorage.clear()
 })
 
+window.onload = () => {
+  for(let i=0; i<localStorage.length; i++) {
+    let retrievedStorageItem = localStorage.getItem(localStorage.key(i));
+    let parsedItem = JSON.parse(retrievedStorageItem)
+    let newRow = document.createElement('tr');
+    newRow.classList.add('cart-row')
 
+    let cartItem = document.createElement('th');
+    cartItem.innerHTML += `${parsedItem.title}`;
+    let cartPrice = document.createElement('th');
+    cartPrice.innerHTML += `${parsedItem.price}`;
+
+    newRow.append(cartItem);
+    newRow.append(cartPrice);
+
+    shoppingCart.append(newRow);
+    let itemPrice = Number(cartPrice.innerHTML);
+    runningTotal += itemPrice;
+    cartTotal.innerHTML = `$${runningTotal}`;
+  }
+}
 
 
 getInventory();
