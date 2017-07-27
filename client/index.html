@@ -8,9 +8,18 @@
   </head>
   <body>
     <main>
-      <section class='sidebar' id='history'>Order History</Section>
+      <section class='hide-history' id='history'>
+        <h3>Order History</h3>
+        <table id='order-history'>
+          <tr>
+            <th>Order</th>
+            <th>Date</th>
+            <th>Total</th>
+          </tr>
+        </table>
+      </section>
       <section id='inventory'></section>
-      <section class='sidebar' id='cart'>
+      <section class='hide-cart' id='cart'>
         <h3>Shopping Cart</h3>
         <table id='shopping-cart'>
           <tr>
@@ -18,13 +27,14 @@
             <th>Price</th>
           </tr>
         </table>
-        <table>
+        <table id='totals'>
           <tr>
             <th>Total</th>
             <th id='cart-total'></th>
           </tr>
         </table>
-      </Section>
+        <button id='place-order-btn' style='display: none'>Place Order</button>
+      </section>
     </main>
     <script src='/assets/scripts/index.js'></script>
   </body>
