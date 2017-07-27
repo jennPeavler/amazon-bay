@@ -1,0 +1,25 @@
+{
+  "name": "amazon-bay",
+  "version": "1.0.0",
+  "description": "Turing school of software and design, mod4-final assessment",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/routes.spec.js",
+    "start": "nodemon server/server.js"
+  },
+  "keywords": [],
+  "author": "Jenn Peavler",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "chai": "^4.0.2",
+    "chai-http": "^3.0.0",
+    "express": "^4.15.3",
+    "knex": "^0.13.0",
+    "mocha": "^3.4.2",
+    "pg": "^6.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
