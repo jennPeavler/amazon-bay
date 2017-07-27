@@ -1,0 +1,26 @@
+@import './normalize.css';
+
+main {
+  display: flex;
+}
+
+#inventory {
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.sidebar {
+  width: 20%;
+}
+
+.item {
+  border: solid black 1px;
+  width: 25%;
+}
+
+.item img {
+  width: 100px;
+  height: 100px;
+}
