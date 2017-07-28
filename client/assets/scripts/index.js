@@ -17,6 +17,15 @@ const getInventory = () => {
   })
 }
 
+const getOrderHistory = () => {
+  console.log('in order history')
+  fetch(`${root}api/v1/order_history`)
+  .then(res => res.json())
+  .then(response => {
+    console.log(response);
+  })
+}
+
 const displayInventory = (inventory) => {
   inventory.forEach(item => {
     let newItem = document.createElement('article');
@@ -106,7 +115,7 @@ orderBtn.addEventListener('click', function() {
   let orderDate = document.createElement('th');
   orderDate.innerHTML += Date.now();
   let orderTotal = document.createElement('th');
-  orderTotal.innerHTML += `$${runningTotal}`;
+  orderTotal.innerHTML += `${runningTotal}`;
 
   newOrder.append(order);
   newOrder.append(orderDate);
@@ -116,14 +125,27 @@ orderBtn.addEventListener('click', function() {
   runningTotal = 0;
 
   const cartRows = document.querySelectorAll('.cart-row');
-  // console.log('cart rows', cartRows)
   cartRows.forEach(row => {
-    console.log(row)
     row.parentNode.removeChild(row);
     cartTotal.innerHTML = '';
   })
-
   localStorage.clear()
+
+  let databaseOrderDate = Number(orderDate.innerHTML)
+  console.log('date', databaseOrderDate, typeof(databaseOrderDate))
+  let databaseOrderTotal = Number(orderTotal.innerHTML)
+  console.log('date', databaseOrderTotal, typeof(databaseOrderTotal))
+
+  fetch(`${root}api/v1/order_history`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      'date': databaseOrderDate,
+      'total': databaseOrderTotal
+    })
+  })
+
+
 })
 
 window.onload = () => {
@@ -146,6 +168,8 @@ window.onload = () => {
     runningTotal += itemPrice;
     cartTotal.innerHTML = `$${runningTotal}`;
   }
+
+  getOrderHistory()
 }
 
 
