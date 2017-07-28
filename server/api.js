@@ -14,6 +14,28 @@ const getInventory = (req, res) => {
   })
 }
 
+const getHistory = (req, res) => {
+  database('order_history').select()
+  .then(orderHistory => {
+    res.status(200).json(orderHistory);
+  })
+  .catch(error => {
+    res.status(500).send(error)
+  })
+}
+
+const postHistory = (req, res) => {
+  const { date, total } = req.body
+  database('order_history').insert({ date, total }, 'id')
+  .then(orderData => {
+    orderData.length ? res.status(201).send('order recorded in table')
+    : res.status(422).send('Unable to record order in table');
+  })
+  .catch(error => res.status(500).send(error));
+}
+
 module.exports = {
-  getInventory
+  getInventory,
+  getHistory,
+  postHistory
 }

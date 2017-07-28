@@ -55,6 +55,20 @@ const inventoryItems = [
   },
 ]
 
+const orderItems = [
+  {
+    date: 20170727,
+    total: 338
+  }
+]
+
+const getOrders = (knex) => {
+  return orderItems.map((item) => {
+    const { date, total } = item;
+    return knex('order_history').insert({ date, total})
+  })
+}
+
 const getInventory = (knex) => {
   return inventoryItems.map((item) => {
     const { title,
@@ -74,6 +88,7 @@ exports.seed = (knex, Promise) => {
   return knex('inventory').del()
     .then(() => {
       const inventoryData = getInventory(knex);
-      return Promise.all([...inventoryData]);
+      const orderData = getOrders(knex);
+      return Promise.all([...inventoryData, ...orderData]);
     });
 };
