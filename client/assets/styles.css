@@ -5,6 +5,10 @@ main {
   justify-content: space-between;
 }
 
+header {
+  text-align: center;
+}
+
 #inventory {
   width: 60%;
   display: flex;
@@ -12,12 +16,14 @@ main {
   justify-content: space-around;
   border: 3px solid black;
   margin: 10px auto;
+  background: #B6D369;
 }
 
 .item {
   border: solid black 1px;
   width: 30%;
   margin-top: 30px;
+  background: white;
 }
 
 .item img {
@@ -47,14 +53,17 @@ th {
   writing-mode: tb;
   position: absolute;
   right: 0;
+  top: 0;
   height: 1000%;
-    padding-top: 20%;
+  padding-top: 20%;
+  background: #119DA4;
 }
 
 .show-cart {
-  background: magenta;
+  background: #119DA4;
   position: absolute;
   right: 0;
+  top: 0;
   z-index: 2;
   height: 1000%;
   padding-left: 5%;
@@ -65,16 +74,31 @@ th {
   writing-mode: tb;
   position: absolute;
   left: 0;
+  top: 0;
   height: 1000%;
   padding-top: 20%;
+  background: #119DA4;
 }
 
 .show-history {
-  background: magenta;
+  background: #119DA4;
   position: absolute;
   left: 0;
+  top: 0;
   z-index: 2;
   height: 1000%;
   padding-left: 5%;
   padding-right: 5%;
+}
+
+button {
+  border: none;
+  background: gray;
+  cursor: pointer;
+}
+
+#place-order-btn {
+  margin-top: 20px;
+  width: 200px;
+  background: white;
 }
