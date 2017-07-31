@@ -4,7 +4,7 @@
   "description": "Turing school of software and design, mod4-final assessment",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/routes.spec.js",
+    "test": "mocha test/routes.spec.js",
     "start": "nodemon server/server.js"
   },
   "keywords": [],
