@@ -7,7 +7,7 @@ const database = require('knex')(configuration)
 const getInventory = (req, res) => {
   database('inventory').select()
   .then(inventory => {
-    res.status(200).json(inventory);
+    inventory.length ? res.status(200).json(inventory) : res.status(404).send('Inventory was not found');
   })
   .catch(error => {
     res.status(500).send(error)
@@ -17,7 +17,7 @@ const getInventory = (req, res) => {
 const getHistory = (req, res) => {
   database('order_history').select()
   .then(orderHistory => {
-    res.status(200).json(orderHistory);
+    orderHistory.length ? res.status(200).json(orderHistory) : res.status(404).send('Order history not found');
   })
   .catch(error => {
     res.status(500).send(error)
@@ -31,7 +31,10 @@ const postHistory = (req, res) => {
     orderData.length ? res.status(201).send('order recorded in table')
     : res.status(422).send('Unable to record order in table');
   })
-  .catch(error => res.status(500).send(error));
+  .catch(error => {
+    console.log(error)
+    res.status(500).send(error);
+  })
 }
 
 module.exports = {

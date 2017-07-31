@@ -21,8 +21,22 @@ const getOrderHistory = () => {
   console.log('in order history')
   fetch(`${root}api/v1/order_history`)
   .then(res => res.json())
-  .then(response => {
-    console.log(response);
+  .then(responses => {
+    responses.forEach(response => {
+      let newOrder = document.createElement('tr');
+
+      let order = document.createElement('th');
+      order.innerHTML = response.id;
+      let orderDate = document.createElement('th');
+      orderDate.innerHTML = response.date;
+      let orderTotal = document.createElement('th');
+      orderTotal.innerHTML = response.total;
+
+      newOrder.append(order);
+      newOrder.append(orderDate);
+      newOrder.append(orderTotal);
+      orderHistory.append(newOrder);
+    })
   })
 }
 
@@ -113,7 +127,7 @@ orderBtn.addEventListener('click', function() {
   let order = document.createElement('th');
   order.innerHTML += orderNumber;
   let orderDate = document.createElement('th');
-  orderDate.innerHTML += Date.now();
+  orderDate.innerHTML += Date.now().toString();
   let orderTotal = document.createElement('th');
   orderTotal.innerHTML += `${runningTotal}`;
 

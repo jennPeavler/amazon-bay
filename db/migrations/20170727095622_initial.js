@@ -10,8 +10,8 @@ exports.up = function(knex, Promise) {
     }),
     knex.schema.createTable('order_history', function(table) {
       table.increments('id').primary()
-      table.integer('date').unsigned()
-      table.integer('total').unsigned()
+      table.string('date')
+      table.string('total')
     })
   ]);
 };
