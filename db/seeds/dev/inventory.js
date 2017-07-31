@@ -59,6 +59,22 @@ const orderItems = [
   {
     date: 20170727,
     total: 338
+  },
+  {
+    date: 20170727,
+    total: 55555
+  },
+  {
+    date: 20170728,
+    total: 103992
+  },
+  {
+    date: 20170720,
+    total: 802822
+  },
+  {
+    date: 20170731,
+    total: 93736262
   }
 ]
 
@@ -86,6 +102,7 @@ const getInventory = (knex) => {
 
 exports.seed = (knex, Promise) => {
   return knex('inventory').del()
+    .then(()=> knex('order_history').del())
     .then(() => {
       const inventoryData = getInventory(knex);
       const orderData = getOrders(knex);
