@@ -26,12 +26,16 @@ const getHistory = (req, res) => {
 
 const postHistory = (req, res) => {
   const { date, total } = req.body
+  console.log(req.body)
   database('order_history').insert({ date, total }, 'id')
   .then(orderData => {
     orderData.length ? res.status(201).send('order recorded in table')
     : res.status(422).send('Unable to record order in table');
   })
-  .catch(error => res.status(500).send(error));
+  .catch(error => {
+    console.log(error)
+    res.status(500).send(error);
+  })
 }
 
 module.exports = {
