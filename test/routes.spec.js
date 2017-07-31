@@ -66,4 +66,57 @@ describe('API Routes', () => {
       });
     });
   })
+
+  describe('GET order_history request', () => {
+    it('should return order_history if user hits order_history api endpoint', (done) => {
+      chai.request(server)
+      .get('/api/v1/order_history')
+      .end((err, response) => {
+        response.should.have.status(200);
+        response.body.length.should.equal(5);
+        arrayContains(response, 'date', '20170727').should.include(true);
+        arrayContains(response, 'date', '20170720').should.include(true);
+        arrayContains(response, 'date', '20170728').should.include(true);
+        arrayContains(response, 'date', '20170731').should.include(true);
+        arrayContains(response, 'total', '338').should.include(true);
+        arrayContains(response, 'total', '55555').should.include(true);
+        arrayContains(response, 'total', '802822').should.include(true);
+        arrayContains(response, 'total', '103992').should.include(true);
+        arrayContains(response, 'total', '93736262').should.include(true);
+        done();
+      });
+    });
+    it('should return a 404 and helpful error message if no order history is found', (done) => {
+      database.migrate.rollback()
+      .then(() => database.migrate.latest())
+      .then(() => {
+        chai.request(server)
+        .get('/api/v1/order_history')
+        .end((err, response) => {
+          response.should.have.status(404);
+          response.error.text.should.equal('Order history not found');
+          done();
+        });
+      });
+    });
+  });
+
+  describe('POST order_history request', () => {
+    it('should insert new order history into database if hits enpoint', (done) => {
+      chai.request(server)
+      .post('/api/v1/order_history')
+      .send({ date: '02132133',
+        total: '999'
+      })
+      .end((err, response) => {
+        response.should.have.status(201);
+        response.text.should.equal('order recorded in table');
+        response.request._data.should.have.property('date');
+        response.request._data.date.should.equal('02132133');
+        response.request._data.should.have.property('total');
+        response.request._data.total.should.equal('999');
+        done();
+      });
+    })
+  })
 })

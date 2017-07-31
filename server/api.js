@@ -17,7 +17,7 @@ const getInventory = (req, res) => {
 const getHistory = (req, res) => {
   database('order_history').select()
   .then(orderHistory => {
-    res.status(200).json(orderHistory);
+    orderHistory.length ? res.status(200).json(orderHistory) : res.status(404).send('Order history not found');
   })
   .catch(error => {
     res.status(500).send(error)
@@ -26,7 +26,6 @@ const getHistory = (req, res) => {
 
 const postHistory = (req, res) => {
   const { date, total } = req.body
-  console.log(req.body)
   database('order_history').insert({ date, total }, 'id')
   .then(orderData => {
     orderData.length ? res.status(201).send('order recorded in table')
